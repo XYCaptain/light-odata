@@ -5,7 +5,7 @@ import { SystemQueryOptions } from "./params";
 import { ODataDateTime, ODataDateTimeOffset, ODataValueObject } from "./types";
 
 
-export type FilterValue = number | string | ODataValueObject | null | boolean | Symbol | object
+export type FilterValue = number | string | ODataValueObject | null | boolean | Symbol | object | bigint
 
 export enum ExprOperator {
   eq = "eq",
@@ -55,7 +55,7 @@ class ODataPropertyExpr<T extends ODataFilter> {
   private _addExpr(op: ExprOperator, value: FilterValue) {
 
     switch (typeof value) {
-      case "number": case "boolean":
+      case "number": case "bigint": case "boolean":
         this._getFieldExprs().push({ op, value: `${value}` });
         break;
       case "string":
